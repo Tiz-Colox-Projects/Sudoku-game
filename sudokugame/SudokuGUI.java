@@ -15,12 +15,12 @@ public class SudokuGUI extends JFrame{
     private JLabel titleTextField;
     private JButton playButton;
     private JButton exitButton;
-    private JComboBox difficultyComboBox;
+    private final String[] levels = {"Easy","Medium","Hard"};
+    private JComboBox difficultyComboBox = new JComboBox(levels);
     private JButton submitButton;
     private JPanel gamePanel;
     private JButton newGameButton;
     private JFormattedTextField[][] grid;
-    private ArrayList<String> ls;
     private final int DIM = 9;
     private SudokuBoard board;
 
@@ -34,15 +34,10 @@ public class SudokuGUI extends JFrame{
         Color fg = new Color(255, 255, 255); //Set background
         titleTextField.setForeground(fg);
 
-        int N = 9, K = 20;
-        board = new SudokuBoard(N, K);
-
         submitButton.setVisible(false);
         newGameButton.setVisible(false);
-        difficultyComboBox.setVisible(false); //Temp
 
         grid = new JFormattedTextField[DIM][DIM];
-        ls = new ArrayList<>();
 
         gamePanel.setLayout(new GridLayout(9,9,4,4));
         gamePanel.setVisible(false);
@@ -86,12 +81,24 @@ public class SudokuGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 newGameButton.setVisible(false);
                 setBoxesEditable(true);
-                //initializeBoard(); TEMP
+                initializeBoard();
             }
         });
     }
 
+    private void clearBoard(){
+        for(int y=0;y<9;y++){
+            for(int x=0;x<9;x++){
+                grid[y][x].setValue('\0');
+            }
+        }
+    }
+
     private void initializeBoard(){
+        clearBoard();
+        int N = 9;
+        int K = 20; //TODO: add input from combobox
+        board = new SudokuBoard(N, K);
         board.fillValues();
         int temp;
         for(int y=0;y<DIM;y++){
@@ -138,7 +145,7 @@ public class SudokuGUI extends JFrame{
         //difficultyComboBox.setModel(ls.toArray());
         for(String value : ls){
             //difficultyComboBox.add();
-        }*/ ///TODO: fix levels menu
+        }*/ //TODO: fix levels menu
     }
 
 
