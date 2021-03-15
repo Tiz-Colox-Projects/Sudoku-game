@@ -34,8 +34,8 @@ public class SudokuGUI extends JFrame{
         Color fg = new Color(255, 255, 255); //Set background
         titleTextField.setForeground(fg);
 
-        board = new SudokuBoard();
-        System.out.println(board.printBoard());
+        int N = 9, K = 20;
+        board = new SudokuBoard(N, K);
 
         submitButton.setVisible(false);
         newGameButton.setVisible(false);
@@ -91,14 +91,18 @@ public class SudokuGUI extends JFrame{
         });
     }
 
-    /*private void initializeBoard(){
-        board.genBoard();
+    private void initializeBoard(){
+        board.fillValues();
+        int temp;
         for(int y=0;y<DIM;y++){
             for(int x=0;x<DIM;x++){
-                grid[y][x].setValue(board.getElement(y+x));
+                temp = board.getElement(x, y);
+                if(temp != 0){
+                    grid[y][x].setValue(temp);
+                }
             }
         }
-    }*/ //TEMP
+    }
 
     private void prepareBoard(){
         gamePanel.setVisible(true);
@@ -111,7 +115,7 @@ public class SudokuGUI extends JFrame{
                 grid[y][x].setHorizontalAlignment(JTextField.CENTER);
             }
         }
-        //initializeBoard(); TEMP
+        initializeBoard();
     }
 
     private void setBoxesEditable(boolean is){
