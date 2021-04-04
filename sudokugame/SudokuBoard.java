@@ -27,6 +27,7 @@ import java.lang.*;
 public class SudokuBoard {
 
     int[] mat[];
+    int[] backup[];
     int N; // number of columns/rows.
     int SRN; // square root of N
     int K; // No. Of missing digits
@@ -56,6 +57,14 @@ public class SudokuBoard {
 
         // Remove Randomly K digits to make game
         removeKDigits();
+    }
+
+    private void copyMat(){
+        for(int i=0; i<N; i++){
+            for(int c=0; c<N; c++){
+                backup[i][c] = mat[i][c];
+            }
+        }
     }
 
     // Fill the diagonal SRN number of SRN x SRN matrices
