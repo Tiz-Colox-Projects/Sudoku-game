@@ -42,8 +42,6 @@ public class SudokuGUI extends JFrame{
         gamePanel.setLayout(new GridLayout(9,9,4,4));
         gamePanel.setVisible(false);
 
-        //prepareDifficultyComboBox();
-
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +57,7 @@ public class SudokuGUI extends JFrame{
                 difficultyComboBox.setVisible(false);
                 submitButton.setVisible(true);
                 prepareBoard();
+                board.print();
             }
         });
 
@@ -66,9 +65,8 @@ public class SudokuGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 newGameButton.setVisible(true);
-                //TODO: add control
                 setBoxesEditable(false);
-                if(true){
+                if(board.checkCorrect()){
                     showMessageDialog(null, "Correct :)");
                 }else{
                     showMessageDialog(null, "Wrong :(");
@@ -97,7 +95,7 @@ public class SudokuGUI extends JFrame{
     private void initializeBoard(){
         clearBoard();
         int N = 9;
-        int K = 20; //TODO: add input from combobox
+        int K = 20;
         board = new SudokuBoard(N, K);
         board.fillValues();
         int temp;

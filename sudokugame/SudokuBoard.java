@@ -43,6 +43,7 @@ public class SudokuBoard {
         SRN = SRNd.intValue();
 
         mat = new int[N][N];
+        backup = new int[N][N];
 
     }
 
@@ -55,8 +56,20 @@ public class SudokuBoard {
         // Fill remaining blocks
         fillRemaining(0, SRN);
 
+        // Copy mat to check when submit
+        copyMat();
+
         // Remove Randomly K digits to make game
         removeKDigits();
+    }
+
+    public boolean checkCorrect(){
+        for(int i=0; i<N; i++){
+            for(int c=0; c<N; c++){
+                if(mat[i][c] != backup[i][c]) return false;
+            }
+        }
+        return true;
     }
 
     private void copyMat(){
@@ -215,25 +228,14 @@ public class SudokuBoard {
     public int getElement(int x, int y){
         return mat[y][x];
     }
-}
 
-
-
-
-    //public int[] board;
-    //private final int DIM = 81;
-
-    /*public SudokuBoard(){
-        board = new int[DIM];
-    }
-    //TEST FUNCTION
-    public void genBoard(){
-        Random rand = new Random();
-        for(int i=0;i<DIM;i++){
-            board[i] = 1 + rand.nextInt(9);
+    //TEST
+    public void print(){
+        for(int i=0; i<N; i++){
+            for(int c=0; c<N; c++){
+                System.out.print(backup[i][c] + " ");
+            }
+            System.out.print("\n");
         }
     }
-    //TEST FUNCTION
-    public int getElement(int pos){
-        return board[pos];
-    }*/
+}
