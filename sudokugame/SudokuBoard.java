@@ -61,6 +61,13 @@ public class SudokuBoard {
 
         // Remove Randomly K digits to make game
         removeKDigits();
+
+        for(int i=0; i<N; i++){
+            for(int c=0; c<N; c++){
+                System.out.print(mat[i][c] + " ");
+            }
+            System.out.print("\n");
+        }
     }
 
     public boolean checkCorrect(){
@@ -230,7 +237,7 @@ public class SudokuBoard {
     }
 
     //TEST
-    public void print(){
+    public void printSolution(){
         for(int i=0; i<N; i++){
             for(int c=0; c<N; c++){
                 System.out.print(backup[i][c] + " ");

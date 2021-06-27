@@ -20,6 +20,7 @@ public class SudokuGUI extends JFrame{
     private JButton submitButton;
     private JPanel gamePanel;
     private JButton newGameButton;
+    private JButton solutionButton;
     private JFormattedTextField[][] grid;
     private final int DIM = 9;
     private SudokuBoard board;
@@ -36,6 +37,7 @@ public class SudokuGUI extends JFrame{
 
         submitButton.setVisible(false);
         newGameButton.setVisible(false);
+        solutionButton.setVisible(false);
 
         grid = new JFormattedTextField[DIM][DIM];
 
@@ -56,8 +58,8 @@ public class SudokuGUI extends JFrame{
                 playButton.setVisible(false);
                 difficultyComboBox.setVisible(false);
                 submitButton.setVisible(true);
+                solutionButton.setVisible(true);
                 prepareBoard();
-                board.print();
             }
         });
 
@@ -82,6 +84,12 @@ public class SudokuGUI extends JFrame{
                 initializeBoard();
             }
         });
+        solutionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.printSolution();
+            }
+        });
     }
 
     private void clearBoard(){
@@ -98,11 +106,20 @@ public class SudokuGUI extends JFrame{
         int K = 20;
         board = new SudokuBoard(N, K);
         board.fillValues();
+        //TEMP
+        System.out.println("\n\n\n\n");
+        for(int i=0; i<N; i++){
+            for(int c=0; c<N; c++){
+                System.out.print(board.getElement(c, i) + " ");
+            }
+            System.out.print("\n");
+        }
+
         int temp;
-        for(int y=0;y<DIM;y++){
-            for(int x=0;x<DIM;x++){
+        for(int y=8;y>=0;y--){
+            for(int x=8;x>=0;x--){
                 temp = board.getElement(x, y);
-                if(temp != 0){
+                if(temp != 0) {
                     grid[y][x].setValue(temp);
                 }
             }
@@ -113,7 +130,7 @@ public class SudokuGUI extends JFrame{
         gamePanel.setVisible(true);
         Font boxFont = new Font("", Font.BOLD,25);
         for(int y=0;y<DIM;y++) {
-            for (int x = 0; x < DIM; x++) {
+            for (int x=0; x < DIM; x++) {
                 grid[y][x] = new JFormattedTextField();
                 grid[y][x].setFont(boxFont);
                 gamePanel.add(grid[y][x],y,x);
